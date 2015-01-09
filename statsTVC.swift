@@ -13,8 +13,11 @@ class statsTVC: UITableViewController {
 
     var stats: [String: String] {
         return [
-          "Total Pushups": "\(totalPushups())",
-          "Avg Pushups per Day": "\(avgPushupsPerDay())"
+            "Total Pushups": "\(totalPushups())",
+            "Avg Pushups per Day": "\(avgPushupsPerDay())",
+            "Pushups Remaining": "\(20000 - totalPushups())",
+            "Required Avg": "\(requiredAverage())",
+            "Most in 1 Day": "\(bestDayTotal())"
         ]
     }
     
@@ -53,6 +56,19 @@ class statsTVC: UITableViewController {
         var date: NSDate = dateFromString("Jan 1, 2015")
         var daysInYear: Double = abs(ceil(date.timeIntervalSinceNow / 60 / 60 / 24))
         return (round((Double(totalPushups()) / daysInYear) * 100)) / 100.0
+    }
+    
+    func requiredAverage() -> Double {
+        var date: NSDate = dateFromString("Jan 1, 2015")
+        var daysInYear: Double = abs(ceil(date.timeIntervalSinceNow / 60 / 60 / 24))
+        var daysLeftInYear: Double = 365 - daysInYear
+        return (round((Double(20000 - totalPushups()) / daysLeftInYear) * 100)) / 100.0
+    }
+    
+    func bestDayTotal() -> Int {
+        return days!
+            .map { $0.valueForKey("count") as Int }
+            .reduce(Int.min, { max($0, $1) })
     }
     
     override func didReceiveMemoryWarning() {
