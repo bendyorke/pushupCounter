@@ -11,8 +11,24 @@ import CoreData
 
 class pushupVC: UIViewController {
     
+    var overrideDate: NSDate?
+    
+    var day: NSDate {
+        get {
+            if self.overrideDate? != nil {
+                return self.overrideDate!
+            } else {
+                return NSDate()
+            }
+        }
+        set(date) {
+            self.overrideDate = date
+            loadDay()
+        }
+    }
+    
     var startOfDay: NSDate {
-        return NSCalendar.currentCalendar().startOfDayForDate(NSDate())
+        return NSCalendar.currentCalendar().startOfDayForDate(day)
     }
     
     var currentCount: Int? {
@@ -31,13 +47,24 @@ class pushupVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = formattedDate(NSDate())
-        counter.text = String(fetchDay().valueForKey("count") as Int)
+        loadDay()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "cal") {
+            var dvc = (segue.destinationViewController.viewControllers as [AnyObject])[0] as calTVC
+            dvc.delegate = self
+        }
+    }
+    
+    func loadDay() {
+        title = formattedDate(day)
+        counter.text = String(fetchDay().valueForKey("count") as Int)
     }
     
     func setCount(newCount: Int) {
@@ -61,7 +88,7 @@ class pushupVC: UIViewController {
         var err: NSError?
         
         let results = context.executeFetchRequest(request, error: &err) as [NSManagedObject]?
-        println(results)
+
         if (results!.count > 0) {
             return results![0]
         } else {

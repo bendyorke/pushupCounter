@@ -105,6 +105,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "pushupCounter"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

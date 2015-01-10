@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>16FC18FF-9506-4661-9DB4-4C9FA94C6E11</string>
+	<key>IDESourceControlProjectName</key>
+	<string>pushupCounter</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>8561296A8AC1905A2F5769016130E3EC802B9ED2</key>
+		<string>github.com:bendyorke/pushupCounter.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>pushupCounter.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>8561296A8AC1905A2F5769016130E3EC802B9ED2</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:bendyorke/pushupCounter.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>8561296A8AC1905A2F5769016130E3EC802B9ED2</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8561296A8AC1905A2F5769016130E3EC802B9ED2</string>
+			<key>IDESourceControlWCCName</key>
+			<string>pushupCounter</string>
+		</dict>
+	</array>
+</dict>
+</plist>
