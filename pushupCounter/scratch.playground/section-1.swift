@@ -31,15 +31,4 @@ var opt: Int? = 2
 
 var bang = (opt? != nil ? opt : 1)
 
-class Tri {
-    var day: NSDate {
-        return NSDate()
-    }
-    
-    func init() {
-        println(day)
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "M-d-yyyy"
-        self.day = dateFormatter.dateFromString("2-1-2015")!
-    }
-}
+(6.123451) as Int

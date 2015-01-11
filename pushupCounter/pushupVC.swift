@@ -12,6 +12,7 @@ import CoreData
 class pushupVC: UIViewController {
     
     var overrideDate: NSDate?
+    var count: Int?
     
     var day: NSDate {
         get {
@@ -36,6 +37,7 @@ class pushupVC: UIViewController {
     }
     
     @IBOutlet weak var counter: UILabel!
+    @IBOutlet weak var motivation: UILabel!
     
     @IBAction func increment(sender: AnyObject) {
         setCount(currentCount! + 1)
@@ -64,7 +66,9 @@ class pushupVC: UIViewController {
     
     func loadDay() {
         title = formattedDate(day)
-        counter.text = String(fetchDay().valueForKey("count") as Int)
+        self.count = fetchDay().valueForKey("count") as? Int
+        counter.text = String(self.count!)
+        motivation.text = motivationalExpression()
     }
     
     func setCount(newCount: Int) {
@@ -74,7 +78,9 @@ class pushupVC: UIViewController {
         let day = fetchDay()
         
         day.setValue(newCount, forKey: "count")
+        self.count = newCount
         counter.text = String(newCount)
+        motivation.text = motivationalExpression()
         context.save(nil)
     }
     
@@ -107,6 +113,35 @@ class pushupVC: UIViewController {
         context.save(&err)
         
         return day
+    }
+    
+    func motivationalExpression() -> String {
+        let appDel = UIApplication.sharedApplication().delegate as AppDelegate
+        let context = appDel.managedObjectContext!
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MMM d, yyyy"
+        
+        let request = NSFetchRequest(entityName: "Day")
+        request.returnsObjectsAsFaults = false
+        var err: NSError?
+        
+        let totalPushups = (context.executeFetchRequest(request, error: &err) as [NSManagedObject]?)!
+            .map { $0.valueForKey("count") as Int }
+            .reduce(0, +)
+
+        let date: NSDate = dateFormatter.dateFromString("Jan 1, 2016")!
+        let daysInYear: Double = abs(ceil(date.timeIntervalSinceNow / 60 / 60 / 24))
+        let avgPerDay = Int(ceil(Double(20000 - totalPushups) / daysInYear))
+        
+        if self.count != nil {
+            if self.count! < avgPerDay {
+                return "Do \(avgPerDay - self.count!) more pushups to stay on track!"
+            } else {
+                return "Yeah I know we all complain about the pain when it ends"
+            }
+        } else {
+            return "Do \(avgPerDay) pushups to stay on track!"
+        }
     }
     
     func formattedDate(date: NSDate) -> String {
